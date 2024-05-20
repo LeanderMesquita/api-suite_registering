@@ -2,10 +2,11 @@ import datetime
 import pandas as pd
 import pyperclip
 from exceptions.data_filling_error import DataFillingError
+from tasks.base_task import BaseTask
 from utils.functions import click_and_fill
 
 
-class RecordCard:
+class RecordCard(BaseTask):
     def __init__(self, row):
         self.row = row
 

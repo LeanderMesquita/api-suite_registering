@@ -1,14 +1,15 @@
 import pyautogui as pya
 import pandas as pd
 from exceptions.data_filling_error import DataFillingError
+from tasks.base_task import BaseTask
 from utils.functions import click_and_fill
 
-class Subject:
+class Subject(BaseTask):
     def __init__(self, row):
         self.row = row
 
     def execute(self):
-        raise NotImplementedError('Subclasses must implements the execute method.')
+        return super().execute()
     
 
 
