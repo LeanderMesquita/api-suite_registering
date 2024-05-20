@@ -1,6 +1,4 @@
-# Automation PATTERN
-
-![Project Logo](https://via.placeholder.com/150)
+# Automation pattern
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -8,7 +6,7 @@
 
 - [Description](#description)
 - [Installation](#installation)
-- [License](#license)
+- [Developer]()
 
 ## Description
 
@@ -27,4 +25,7 @@ source .venv/bin/activate (if MACos or Linux) .venv/bin/activate (if Windows)
 *Installing dependencies*
 pip install -r requeriments.txt
 
+## Social 
 
+*My linkedin profile*
+https://www.linkedin.com/in/leandermesquita/
