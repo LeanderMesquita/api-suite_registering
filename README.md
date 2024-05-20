@@ -6,7 +6,7 @@
 
 - [Description](#description)
 - [Installation](#installation)
-- [Developer]()
+- [Developer](#social)
 
 ## Description
 
