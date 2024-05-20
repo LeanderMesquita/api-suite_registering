@@ -31,12 +31,11 @@ def start_automation(file_path):
     try:
         # Read the spreadsheet
         df = pd.read_excel(file_path)
-        # For simplicity, assuming the first row contains the data to be processed
-        row = df.iloc[0]
-        
-        task = TaskFactory.create_task('register_process', row)
-        task.execute()
-        logger.info('Process successfully registered.')
+        # Iterate over each row in the DataFrame
+        for index, row in df.iterrows():
+            task = TaskFactory.create_task('register_process', row)
+            task.execute()
+            logger.info(f'Process {index + 1} successfully registered.')
     except Exception as e:
         logger.error(f'Error processing the file: {e}')
 
