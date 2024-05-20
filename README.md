@@ -20,7 +20,7 @@ To initiate the project and intall dependencies you must configure your .venv, l
 python -m venv .venv
 
 *Activating*
-source .venv/bin/activate (if MACos or Linux) .venv/bin/activate (if Windows)
+source .venv/bin/activate (if MACos or Linux) .venv/scripts/activate (if Windows)
 
 *Installing dependencies*
 pip install -r requeriments.txt
