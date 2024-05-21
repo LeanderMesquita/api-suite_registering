@@ -1,4 +1,4 @@
-from tasks.subjects import Subjects
+from tasks.subjects import Subject
 from tasks.essential_data import EssentialData
 from tasks.record_card import RecordCard
 from tasks.schedule import Schedule
@@ -7,8 +7,8 @@ from tasks.register_process import RegisterProcess
 class TaskFactory:
     @staticmethod
     def create_task(task_type, row):
-        if task_type == 'subjects':
-            return Subjects(row)
+        if task_type == 'subject':
+            return Subject(row)
         elif task_type == 'essential_data':
             return EssentialData(row)
         elif task_type == 'record_card':

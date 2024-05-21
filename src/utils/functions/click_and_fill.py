@@ -2,7 +2,7 @@ import pyautogui as pya
 from time import sleep
 from utils.constants.index import POSITION_PATH
 
-async def click_and_fill(position_name, value:str =None, delay_before: int = 0, delay_after: int = 2, command:str='click'):
+def click_and_fill(position_name, value:str =None, delay_before: int = 0, delay_after: int = 2, command:str='click'):
     x, y = POSITION_PATH[position_name]
 
     if delay_before > 0:

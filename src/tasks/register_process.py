@@ -1,10 +1,10 @@
 from exceptions.data_filling_error import DataFillingError
 from tasks.base_task import BaseTask
-from tasks.subjects import Author, Defendant, Lawyer, RelatedProfessionals, Subjects
+from tasks.subjects import Author, Defendant, Lawyer, RelatedProfessionals
 from tasks.essential_data import EssentialData
 from tasks.record_card import RecordCard
 from tasks.schedule import Schedule
-from utils.functions import click_and_fill
+from utils.functions.click_and_fill import click_and_fill
 
 class RegisterProcess(BaseTask):
     def __init__(self, row):

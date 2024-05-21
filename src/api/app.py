@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 import pandas as pd
 from factory import TaskFactory
-from utils.logs import logger
+
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -35,9 +35,9 @@ def start_automation(file_path):
         for index, row in df.iterrows():
             task = TaskFactory.create_task('register_process', row)
             task.execute()
-            logger.info(f'Process {index + 1} successfully registered.')
+            
     except Exception as e:
-        logger.error(f'Error processing the file: {e}')
+        raise Exception
 
 if __name__ == '__main__':
     app.run(debug=True)
