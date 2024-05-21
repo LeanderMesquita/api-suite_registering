@@ -3,7 +3,7 @@ import pandas as pd
 from exceptions.data_filling_error import DataFillingError
 from tasks.base_task import BaseTask
 from utils.functions.click_and_fill import click_and_fill
-
+from utils.logger.logger import log
 
 class Subject(BaseTask):
     def __init__(self, row):
@@ -19,17 +19,23 @@ class Defendant(Subject):
         super().__init__(row)
 
     def execute(self):
+        log.info('Starting the defendant registering')
         try:
+            log.debug('Filling the "TITULAR" field')
             click_and_fill('titular', value=self.row['TITULAR'], delay_before=2) 
+            log.debug('Filling the "TIPO PROCESSO" field')
             click_and_fill('tipo_processo', value=self.row['TIPO PROCESSO']) 
-
-            pya.click(x=1000, y=608, clicks=3, interval=0.5) ##accept tipo_processo
-
+            log.debug('Accepting the "TIPO PROCESSO field in system"')
+            pya.click(x=1000, y=608, clicks=3, interval=0.5) 
+            log.debug('Filling the "PAPEL PARTE" field')
             click_and_fill('papel_parte', delay_before=2) 
+            log.debug('Selecting "Réu"')
             click_and_fill('selecionar_reu')
+            log.debug('Filling "SUBSIDIARIA" field')
             click_and_fill('subsidiaria', value=self.row['SUBSIDIARIA'], delay_before=2) 
-
+            log.success("Defendant registered!")
         except: 
+            log.error("Cannot possible registering the defendant.")
             click_and_fill('anular_reu')
             raise DataFillingError(f'Nao foi possivel adicionar o reu.')
         
