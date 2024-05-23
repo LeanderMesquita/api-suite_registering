@@ -40,18 +40,18 @@ def start_automation(file_path):
                 log.info(f'Registering process: ({row['NUMERO DO PROCESSO']}).')
                 situational_init_key = 'novo_processo' if index == 0 else 'processo_seguinte'
                 click_and_fill(situational_init_key)
-                task = TaskFactory.create_task('defendant', row)
+                task = TaskFactory.create_task('author', row)
                 task.execute()
                 log.success(f'Process ({row['NUMERO DO PROCESSO']}) was registered with success!')
-                store_success()
-            except:
-                log.error(f'The process: ({row['NUMERO DO PROCESSO']}) was not registered.')
+                store_success(row['NUMERO DO PROCESSO'], row['AUTOR'])
+            except Exception as e:
+                log.error(f'The process: ({row['NUMERO DO PROCESSO']}) was not registered. {e}')
                 log.info('Moving on to the next process...')
-                store_error()
+                store_error(row['NUMERO DO PROCESSO'], row['AUTOR'])
                 continue
     except Exception as e:
         log.critical(f"An critical error occurred!: {e}")
-        raise 
+         
 
 if __name__ == '__main__':
     app.run(debug=True)
