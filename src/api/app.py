@@ -5,6 +5,7 @@ import pandas as pd
 from factory import TaskFactory
 from utils.functions.click_and_fill import click_and_fill
 from utils.logger.logger import log
+from utils.logger.return_logs import store_success, store_error
 
 
 app = Flask(__name__)
@@ -42,9 +43,12 @@ def start_automation(file_path):
                 task = TaskFactory.create_task('defendant', row)
                 task.execute()
                 log.success(f'Process ({row['NUMERO DO PROCESSO']}) was registered with success!')
+                store_success()
             except:
                 log.error(f'The process: ({row['NUMERO DO PROCESSO']}) was not registered.')
                 log.info('Moving on to the next process...')
+                store_error()
+                continue
     except Exception as e:
         log.critical(f"An critical error occurred!: {e}")
         raise 
