@@ -45,39 +45,56 @@ class Author(Subject):
         super().__init__(row)
 
     def execute(self):
+        log.info('Starting the author registering')
         try:
+            log.debug('Adding counterpart')
             click_and_fill('acrescentar_contraparte')
+            log.debug('Adding a new author')
             click_and_fill('novo_autor')
 
-            if not(pd.isna(self.row['CODIGO PESSOA'])): 
+            if not(pd.isna(self.row['CODIGO PESSOA'])):
+                log.debug('Filling the "CODIGO PESSOA" input') 
                 click_and_fill('codigo_pessoa', str(self.row['CODIGO PESSOA']))
-            
+            log.debug('Filling the author name')
             click_and_fill('nome', self.row['AUTOR'])
+            log.debug('Filling the author address')
             click_and_fill('endereco', self.row['ENDERECO'])
             
             if not(pd.isna(self.row['CEP'])):
+                log.debug('Filling the Author CEP')
                 click_and_fill('cep', str(self.row['CEP']))
-             
+            log.debug('Filling the author city')
             click_and_fill('cidade', self.row['CIDADE']) 
             
+            log.debug('Choosing the person type')
             click_and_fill('tipo_pessoa')
 
             if not(pd.isna(self.row['CNPJ'])):
+                log.debug('Declaring legal entity')
                 click_and_fill('pessoa_juridica') 
+                log.debug('Filling the author CNPJ')
                 click_and_fill('cnpj', str(self.row['CNPJ']))
             elif not(pd.isna(self.row['CPF'])):    
+                log.debug('Declaring an individual person')
                 click_and_fill('pessoa_fisica')
+                log.debug('Affirming the person gender')
                 click_and_fill('sexo', self.row['SEXO'])
+                log.debug('Filling the author CPF')
                 click_and_fill('cpf', str(self.row['CPF']))
 
+            log.debug('Accepting new author register')
             click_and_fill('ok_pessoa')
+            log.debug('Accepting existant author')
             click_and_fill('aceitar_existente')
+            log.debug('Confirm existent author')
             click_and_fill('confirmar_existente')
             click_and_fill('ok_contraparte')
+            log.debug('Claiming as author')
             click_and_fill('tipo_processual_autor', command='doubleClick')
             click_and_fill('selecionar_tipo_autor')
-
+            log.success('Author registered!')
         except:
+            log.error('Cannot possible registering the current author.')
             click_and_fill('anular_novo_autor')
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
