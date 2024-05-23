@@ -3,7 +3,7 @@ from tasks.essential_data import EssentialData
 from tasks.record_card import RecordCard
 from tasks.schedule import TermSchedule, HearingSchedule, TutelageSchedule
 from tasks.register_process import RegisterProcess
-
+from utils.logger.logger import log
 class TaskFactory:
     @staticmethod
     def create_task(task_type, row):
@@ -28,4 +28,5 @@ class TaskFactory:
         elif task_type == 'register_process':
             return RegisterProcess(row)
         else:
+            log.critical(f'Unknown task type: {task_type}')
             raise ValueError(f'Unknown task type: {task_type}')
