@@ -35,8 +35,9 @@ class Defendant(Subject):
             click_and_fill('subsidiaria', value=self.row['SUBSIDIARIA'], delay_before=2) 
             log.success("Defendant registered!")
         except Exception as e: 
+            log.error(f"Cannot possible registering the defendant.")
             click_and_fill('anular_reu')
-            raise log.error(f"Cannot possible registering the defendant. {e}")
+            raise f'ERROR: {e}'
         
 
 class Author(Subject):
@@ -88,15 +89,16 @@ class Author(Subject):
             log.debug('Confirm existent author')
             click_and_fill('confirmar_existente')
             click_and_fill('ok_contraparte')
-            log.debug('Claiming as author')
+            log.debug('Declaring as author')
             click_and_fill('tipo_processual_autor', command='doubleClick')
             click_and_fill('selecionar_tipo_autor')
             log.success('Author registered!')
         except Exception as e:
+            log.error(f'Cannot possible registering the current author.')
             click_and_fill('anular_novo_autor')
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
-            raise log.error(f'Cannot possible registering the current author. {e}')
+            raise f'ERROR: {e}'
 
 class Lawyer(Subject):
     def __init__(self, row):
@@ -124,21 +126,23 @@ class Lawyer(Subject):
             log.debug('Selecting as a counterpart lawyer')
             click_and_fill('tipo_advogado', 'Adv. contraparte', command='doubleClick')
             click_and_fill('adv_contraparte')
-            log.debug('Claiming as a author lawyer')    
+            log.debug('Declaring as a author lawyer')    
             click_and_fill('tipo_processual_adv', command='doubleClick')
             click_and_fill('adv_autor')
             log.success('Lawyer successfull registered!')
             
         except Exception as e:
+            log.error(f'Cannot possible registering the lawyer. {e}')
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
-            raise log.error(f'Cannot possible registering the lawyer. {e}')
+            raise f'ERROR: {e}'
         
 class RelatedProfessionals(Subject):
     def __init__(self, row):
         super().__init__(row)
 
     def select_office(self, office):
+        log.debug('Selecting office')
         office_map = {
             'TAUNAY': 'select_taunay',
             'CML ADVOGADOS': 'select_cml',
@@ -153,25 +157,37 @@ class RelatedProfessionals(Subject):
         if office:
             click_and_fill(office)
         else:
-            print("No office defined for this condition.")
+            log.warning("No office defined for this condition.")
 
     def execute(self):
+        log.info('Starting the related professionals registering')
         try:
+            log.debug('Going to professionals form')
             click_and_fill('selecionar_profissionais')
-            click_and_fill('selecionar_profissional_responsavel', self.row['RESPONSAVEL'])#ex: 'ENEIDA ZURU' 
-            click_and_fill('acrescentar_externo', delay_after=5) 
+            log.debug('Filling the "RESPONSAVEL" input')
+            click_and_fill('selecionar_profissional_responsavel', self.row['RESPONSAVELs'])
+            log.debug('Going to office form')
+            click_and_fill('acrescentar_externo', delay_after=5)
+            log.debug('Visualyzing signed') 
             click_and_fill('vizualizar_assinados')
-            click_and_fill('nominativo', self.row['ESCRITORIO'])#ex: nome do escritorio
+            log.debug('Searching by office name')
+            click_and_fill('nominativo', self.row['ESCRITORIO'])
+            log.debug('Selecting the current office option')
             self.select_office(office=self.row['ESCRITORIO'])
+            log.debug('Confirming the office')
             click_and_fill('ok_escritorio_encarregado')
             click_and_fill('ok_detalhe_encarregado')
+            log.debug('Accepting the errand value')
             click_and_fill('aceitar_valor_incumbencia', delay_after=3)
+            log.debug('Confirming the related professionals')
             click_and_fill('finalizar_profissionais_processo')
-        except:
+            log.success('Related professionals successfully registered!')
+        except Exception as e:
+            log.error(f'Cannot possible registering the related professionals.')
             click_and_fill('anular_detalhe_encarregado')
             click_and_fill('anular_profissional_encarregado')
             click_and_fill('anular_profissionais')
             click_and_fill('anular_dados_iniciais')
-            raise DataFillingError(f'Nao foi possivel preencher os profissionais')
+            raise f'ERROR: {e}'
     
     
