@@ -34,10 +34,9 @@ class Defendant(Subject):
             log.debug('Filling "SUBSIDIARIA" field')
             click_and_fill('subsidiaria', value=self.row['SUBSIDIARIA'], delay_before=2) 
             log.success("Defendant registered!")
-        except: 
-            log.error("Cannot possible registering the defendant.")
+        except Exception as e: 
             click_and_fill('anular_reu')
-            raise DataFillingError(f'Nao foi possivel adicionar o reu.')
+            raise log.error(f"Cannot possible registering the defendant. {e}")
         
 
 class Author(Subject):
@@ -93,39 +92,47 @@ class Author(Subject):
             click_and_fill('tipo_processual_autor', command='doubleClick')
             click_and_fill('selecionar_tipo_autor')
             log.success('Author registered!')
-        except:
-            log.error('Cannot possible registering the current author.')
+        except Exception as e:
             click_and_fill('anular_novo_autor')
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
-            raise DataFillingError(f'Nao foi possivel cadastrar o autor.')
+            raise log.error(f'Cannot possible registering the current author. {e}')
 
 class Lawyer(Subject):
     def __init__(self, row):
         super().__init__(row)
 
     def execute(self):
+        log.info('Initiating the lawyer registering')
         try: 
+            log.debug('Adding counterpart')
             click_and_fill('acrescentar_contraparte')
+            log.debug('Searching by complete visualization')
             click_and_fill('visualizacao_completa')
 
             if not (pd.isna(self.row['OAB ADVOGADO'])):
+                log.debug('Filling the lawyer OAB code')
                 click_and_fill('busca_oab_advogado', str(self.row['OAB ADVOGADO']))       
             else:
+                log.debug('Filling with the "without lawyer" instruction')
                 click_and_fill('busca_oab_advogado', 'SEM ADVOGADO')
 
+            log.debug('Searching')
             click_and_fill('click_busca', delay_after=5)
+            log.debug('Selecting the first option')
             click_and_fill('seleciona_advogado', command='doubleClick')
-
+            log.debug('Selecting as a counterpart lawyer')
             click_and_fill('tipo_advogado', 'Adv. contraparte', command='doubleClick')
-            click_and_fill('adv_contraparte')    
+            click_and_fill('adv_contraparte')
+            log.debug('Claiming as a author lawyer')    
             click_and_fill('tipo_processual_adv', command='doubleClick')
             click_and_fill('adv_autor')
+            log.success('Lawyer successfull registered!')
             
-        except:
+        except Exception as e:
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
-            raise DataFillingError(f'Erro no cadastro de advogado')
+            raise log.error(f'Cannot possible registering the lawyer. {e}')
         
 class RelatedProfessionals(Subject):
     def __init__(self, row):
