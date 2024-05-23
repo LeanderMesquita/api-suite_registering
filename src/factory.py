@@ -1,7 +1,7 @@
-from tasks.subjects import Subject, Defendant, Author, Lawyer, RelatedProfessionals
+from tasks.subjects import Defendant, Author, Lawyer, RelatedProfessionals
 from tasks.essential_data import EssentialData
 from tasks.record_card import RecordCard
-from tasks.schedule import Schedule
+from tasks.schedule import TermSchedule, HearingSchedule, TutelageSchedule
 from tasks.register_process import RegisterProcess
 
 class TaskFactory:
@@ -19,8 +19,12 @@ class TaskFactory:
             return RelatedProfessionals(row)
         elif task_type == 'record_card':
             return RecordCard(row)
-        elif task_type == 'schedule':
-            return Schedule(row)
+        elif task_type == 'term_schedule':
+            return TermSchedule(row)
+        elif task_type == 'hearing_schedule':
+            return HearingSchedule(row)
+        elif task_type == 'tutelage_schedule':
+            return TutelageSchedule(row)
         elif task_type == 'register_process':
             return RegisterProcess(row)
         else:
