@@ -44,6 +44,7 @@ class EssentialData(BaseTask):
             click_and_fill('inserir_vara', value=self.row['VARA'])
             log.debug('Selecting the current court')
             click_and_fill('selecionar_vara', command='doubleClick')
+            log.success('Essential date registered successfully!')
         except Exception as e: 
             log.error(f"ERROR DURING FILLING THE ESSENTIAL DATA. Error: {e}")
             click_and_fill('anular_dados_iniciais')
