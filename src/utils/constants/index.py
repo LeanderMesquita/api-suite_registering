@@ -7,9 +7,11 @@ POSITION_PATH = {
     'anular_profissionais': (1509, 838),
     'anular_profissional_encarregado': (1522, 795),
     'anular_detalhe_encarregado': (1355, 911),
+    'anular_ficha': (1417, 890),
+    'anular_obs': (1227, 329),
     ## iniciar novo processo
     'novo_processo': (59, 576),
-    'processo_seguinte': (39, 444),
+    'processo_seguinte': (60, 418),
     ## reu
     'titular': (599, 283),
     'tipo_processo': (850, 211),
@@ -51,8 +53,10 @@ POSITION_PATH = {
     ## dados essenciais
     'aceitar_novo_processo': (1049, 639),
     'botao_do_contrato': (1338, 638),
-    'valor_da_causa': (646, 772), 
-    'colar_valor': (677, 882),
+    'selecionar_input_valor': (702, 777),
+    'zerar_input_valor': (702, 827),
+    'valor_da_causa': (614, 777), 
+    'colar_valor': (657, 881),
     'estado_processo': (683, 874),
     'operacao': (963, 872),
     'hashtag': (997, 526),
@@ -62,9 +66,18 @@ POSITION_PATH = {
     ## dados registro
     'dados_registro': (566, 313),
     'numero_processo': (342, 456),
+    # vara
     'adicionar_vara': (628, 394),
     'inserir_vara': (783, 353),
-    'selecionar_vara': (817, 397),
+    'select_1_posicao': (817, 398),
+    ## posições vara
+    'select_2_posicao': (817, 414),
+    'select_3_posicao': (817, 430),
+    'select_4_posicao': (817, 446),
+    'select_5_posicao': (817, 462),
+    'select_6_posicao': (817, 478),
+    'select_7_posicao': (817, 494),
+
     ## selecionar profissionais
     'selecionar_profissionais': (416, 938),
     'selecionar_profissional_responsavel': (1173, 249),
@@ -115,8 +128,10 @@ POSITION_PATH = {
     'colar_valor_dano_moral': (1240, 706),
     'colar_valor_dano_material': (823, 707),
     'ok_ficha': (1280, 881),
+    'inserir_alterar_elemento': (968, 613),
+
     ## agenda
-    'selecionar_agenda': (696, 170),
+    'selecionar_agenda': (703, 175),
     'abrir_agenda': (695, 577),
     'nova_agenda': (758, 597),
     'novo_prazo': (1100, 664),
@@ -130,13 +145,18 @@ POSITION_PATH = {
     'ok_nota': (1294, 768),
     'selecionar_data': (763, 292),
     'colar_data': (797, 395),
+    'selecionar_data_decisao': (764, 314),
+    'colar_data_decisao': (805, 413),
     'inserir_horario': (1042, 291),
     'selecionar_outra_nota': (967, 758),
     'aceitar_outra_nota': (1053, 611),
     'ok_data_cumprimento': (993, 555),
-    'confirmar_compromisso': (),
+    'confirmar_compromisso': (1053, 607),
     'ok_agenda': (1107, 761),
     'encerrar_processo': (277, 109),
+    'alterar_descricao': (1028, 447),
+    'encerrar_data': (1298, 242),
+    'confirmar_encerramento': (1051, 611),
     
 
 }
