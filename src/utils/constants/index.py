@@ -131,7 +131,7 @@ POSITION_PATH = {
     'inserir_alterar_elemento': (968, 613),
 
     ## agenda
-    'selecionar_agenda': (703, 175),
+    'selecionar_agenda': (652, 172),
     'abrir_agenda': (695, 577),
     'nova_agenda': (758, 597),
     'novo_prazo': (1100, 664),
@@ -147,6 +147,7 @@ POSITION_PATH = {
     'colar_data': (797, 395),
     'selecionar_data_decisao': (764, 314),
     'colar_data_decisao': (805, 413),
+    'adicionar_tipo_nota_decisao':(734, 392),
     'inserir_horario': (1042, 291),
     'selecionar_outra_nota': (967, 758),
     'aceitar_outra_nota': (1053, 611),
@@ -159,4 +160,26 @@ POSITION_PATH = {
     'confirmar_encerramento': (1051, 611),
     
 
+}
+
+IMAGE_PATH = {
+    'initial_register_screen_validator': 'src/utils/screens/images/initial_register_screen_validator.png',
+    'defendant_validator': 'src/utils/screens/images/defendant_validator.png',
+    'new_author': 'src/utils/screens/images/new_author.png',
+    'author_validator': 'src/utils/screens/images/author_validator.png',
+    'initial_data_validator': 'src/utils/screens/images/initial_data_validator.png',
+    'register_data_validator': 'src/utils/screens/images/register_data_validator.png',
+    'court_validation': 'src/utils/screens/images/court_validation.png',
+    'professionals_validation': 'src/utils/screens/images/professionals_validation.png',
+    'office_validation': 'src/utils/screens/images/office_validation.png',
+    'in_charge_detail_validation': 'src/utils/screens/images/in_charge_detail_validation.png',
+    'record_card_validator': 'src/utils/screens/images/record_card_validator.png',
+    'observation_validator': 'src/utils/screens/images/observation_validator.png',
+    'initiate_schedule_validator': 'src/utils/screens/images/initiate_schedule_validator.png',
+    'schedule_screen_validator': 'src/utils/screens/images/schedule_screen_validator.png',
+    'inside_schedule_validator': 'src/utils/screens/images/inside_schedule_validator.png',
+    'inside_note_validator': 'src/utils/screens/images/inside_note_validator.png',
+    'registered_schedule_validator': 'src/utils/screens/images/registered_schedule_validator.png',
+    'fullfillment_validator': 'src/utils/screens/images/fullfillment_validator.png',
+    'existent_validator': 'src/utils/screens/images/existent_validator.png',
 }
