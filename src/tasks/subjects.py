@@ -23,12 +23,12 @@ class Defendant(Subject):
         log.info('Starting the defendant registering')
         try:
             self.screen.validate_image('defendant_validator')
-            click_and_fill('titular', value=self.row['TITULAR'], delay_before=2) 
+            click_and_fill('titular', value=self.row['TITULAR']) 
             click_and_fill('tipo_processo', value=self.row['TIPO PROCESSO']) 
             pya.click(x=1000, y=608, clicks=3, interval=0.5) 
-            click_and_fill('papel_parte', delay_before=2) 
+            click_and_fill('papel_parte') 
             click_and_fill('selecionar_reu')
-            click_and_fill('subsidiaria', value=self.row['SUBSIDIARIA'], delay_before=2) 
+            click_and_fill('subsidiaria', value=self.row['SUBSIDIARIA']) 
             log.success("Defendant registered!")
         except Exception as e: 
             log.error(f"Cannot possible registering the defendant. {e}")
@@ -71,8 +71,10 @@ class Author(Subject):
          
             click_and_fill('ok_pessoa')
             click_and_fill('aceitar_existente')
-            click_and_fill('confirmar_existente')
+            if(self.screen.check_if_exist_image('existent_validator', tryes=5)):
+                click_and_fill('confirmar_existente', delay_before=2)
             click_and_fill('ok_contraparte')
+            self.screen.validate_image('defendant_validator')
             click_and_fill('tipo_processual_autor', command='doubleClick')
             click_and_fill('selecionar_tipo_autor')
             log.success('Author registered!')
@@ -101,6 +103,7 @@ class Lawyer(Subject):
 
             click_and_fill('click_busca', delay_after=5)
             click_and_fill('seleciona_advogado', command='doubleClick')
+            self.screen.validate_image('defendant_validator')
             click_and_fill('tipo_advogado', 'Adv. contraparte', command='doubleClick')
             click_and_fill('adv_contraparte')
             click_and_fill('tipo_processual_adv', command='doubleClick')
