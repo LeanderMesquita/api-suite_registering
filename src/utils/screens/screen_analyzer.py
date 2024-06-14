@@ -1,12 +1,10 @@
-import abc
 import pyautogui as pya
 import numpy as np
 import cv2
 from utils.constants.index import IMAGE_PATH
 
 class ScreenAnalyzer:
-    
-    @abc.abstractmethod
+     
     def locate_on_screen(self, template_path, screenshot_path, threshold=0.85):
         template = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
 
@@ -32,7 +30,7 @@ class ScreenAnalyzer:
     def validate_image(self, image_alias):
         while True:
             try:
-                screenshot = 'src/validator/fullscreen.png'
+                screenshot = 'src/utils/screens/fullscreen.png'
                 pya.screenshot(screenshot)
                 image_path = IMAGE_PATH[image_alias]
                 if self.locate_on_screen(template_path=image_path, screenshot_path=screenshot):
@@ -42,3 +40,18 @@ class ScreenAnalyzer:
                     print(f'Not found, researching {image_alias}...')
             except Exception as e:
                 print(e)
+
+    def check_if_exist_image(self, image_alias:str, tryes:int):
+        i = 0
+        while i < tryes:
+            try:
+                screenshot = 'src/utils/screens/fullscreen.png'
+                pya.screenshot(screenshot)
+                if self.locate_on_screen(template_path=image_alias, screenshot_path=screenshot):
+                    print('found! waiting action')
+                    return True
+                
+                i += 1 
+                print(f'researching...({i} try)')                    
+            except Exception as e:
+                raise e
