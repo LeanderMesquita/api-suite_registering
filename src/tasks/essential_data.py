@@ -1,51 +1,73 @@
+from time import sleep
 import pyautogui as pya
 import pyperclip
 from utils.logger.logger import log
 from exceptions.data_filling_error import DataFillingError
 from tasks.base_task import BaseTask
 from utils.functions.click_and_fill import click_and_fill
+from utils.screens.screen_analyzer import ScreenAnalyzer
 
 class EssentialData(BaseTask):
     def __init__(self, row):
         self.row = row
+        self.screen = ScreenAnalyzer() 
+
+    def select_court(self, court:str):
+        log.debug('Filling the court')
+        court_map = {
+            '2 VARA CIVEL': 'select_2_posicao',
+            '3 VARA CIVEL': 'select_4_posicao',
+            '4 VARA CIVEL': 'select_7_posicao',
+            '5 VARA CIVEL': 'select_6_posicao',
+            '6 VARA CIVEL': 'select_6_posicao',
+            '7 VARA CIVEL': 'select_6_posicao',
+            '8 VARA CIVEL': 'select_6_posicao',
+            '9 VARA CIVEL': 'select_6_posicao',
+            'JUIZADO ESPECIAL CIVEL': 'select_1_posicao'
+        }
+
+        court_key = court_map.get(court, None)
+        default_p = 'select_1_posicao'
+        
+        log.debug(f'Court: {court}')
+        if court_key:
+            if court == 'JUIZADO ESPECIAL CIVEL':
+                pya.click(x=1125, y=424)
+                sleep(1)
+                pya.mouseDown()
+                sleep(1)
+                pya.moveTo(x=1125, y=514)
+                sleep(1)
+                pya.mouseUp()
+                sleep(1)
+                return click_and_fill(court_key, command='doubleClick')
+            return click_and_fill(default_p, command='doubleClick')
 
     def execute(self):
         log.info('Iniciating the Essential data registering')
         try:
-            log.debug('Checking "No contrato"')
+            self.screen.validate_image('initial_data_validator')
             click_and_fill('botao_do_contrato')
-            log.debug('Copying the "VALOR DA CAUSA" value')
             pyperclip.copy(self.row['VALOR'])
-            log.debug('Right click in VALOR input')
             click_and_fill('valor_da_causa', command='rightClick')
-            log.debug('Pasting')
             click_and_fill('colar_valor')
-            log.debug('Filling the process loading state')
             click_and_fill('estado_processo', 'INICIAL')
-            log.debug('Filling the process operation')
             click_and_fill('operacao', 'ANDAMENTO')
-            log.debug('Filling the "AGREGADO" field')
             click_and_fill('agregado', self.row['AGREGADO'])
-            log.debug('Confirming the process operation')
             click_and_fill('operacao', 'ANDAMENTO')
-            log.debug('Filling the "DETALHE" field')
             click_and_fill('detalhe', self.row['DETALHE'])
-            log.debug('Filling the "SERIE" field')
             click_and_fill('serie', self.row['SERIE'])
-            log.debug('Filling the "HASHTAG field"')
             click_and_fill('hashtag', self.row['HASHTAG'])
-            log.info('Going to registering data')
             click_and_fill('dados_registro')
-            log.debug('Filling the process number')
+            self.screen.validate_image('register_data_validator')
             click_and_fill('numero_processo', self.row['NUMERO DO PROCESSO'])
             pya.press('tab')
-            log.debug('Filling the court')
-            click_and_fill('adicionar_vara', delay_before=2)
+            click_and_fill('adicionar_vara')
+            self.screen.validate_image('court_validation')
             click_and_fill('inserir_vara', value=self.row['VARA'])
-            log.debug('Selecting the current court')
-            click_and_fill('selecionar_vara', command='doubleClick')
+            self.select_court(self.row['VARA'])
             log.success('Essential date registered successfully!')
         except Exception as e: 
             log.error(f"ERROR DURING FILLING THE ESSENTIAL DATA. Error: {e}")
             click_and_fill('anular_dados_iniciais')
-            raise DataFillingError(f'Nao foi possivel preencher os dados essenciais.')
+            
