@@ -2,7 +2,6 @@ import pyperclip
 from exceptions.data_filling_error import DataFillingError
 from tasks.base_task import BaseTask
 from utils.functions.click_and_fill import click_and_fill
-from utils.functions.decapitalize_letters import decapitalize_letters
 from utils.functions.format_date import format_date
 from utils.logger.logger import log
 
@@ -26,7 +25,7 @@ class TermSchedule(Schedule):
             click_and_fill('nova_agenda')
             log.debug('Selecting the term schedule type')
             click_and_fill('novo_prazo', delay_after=6)
-            robot_response = decapitalize_letters(self.row['RECEBIDO POR ROBO'])
+            robot_response = self.row['RECEBIDO POR ROBO'].lower()
 
             log.info('Registering the distribuition schedule')
             distribuition_date = format_date(self.row['DATA DISTRIBUICAO'])
