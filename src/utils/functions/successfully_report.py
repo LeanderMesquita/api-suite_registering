@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 import pandas as pd
 from datetime import datetime
 
-def log_success(process_number, author_name):
+def successfully_report(process_number, author_name):
 
     directory_name = 'relatorio_cadastrados'
     desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")

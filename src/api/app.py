@@ -3,9 +3,11 @@ from werkzeug.utils import secure_filename
 import os
 import pandas as pd
 from factory import TaskFactory
+from utils.functions.error_report import error_report
 from utils.functions.click_and_fill import click_and_fill
+from utils.functions.successfully_report import successfully_report
 from utils.logger.logger import log
-from utils.logger.return_logs import store_success, store_error
+
 
 
 app = Flask(__name__)
@@ -43,11 +45,11 @@ def start_automation(file_path):
                 task = TaskFactory.create_task('author', row)
                 task.execute()
                 log.success(f'Process ({row['NUMERO DO PROCESSO']}) was registered with success!')
-                store_success(row['NUMERO DO PROCESSO'], row['AUTOR'])
+                successfully_report(row['NUMERO DO PROCESSO'], row['AUTOR'])
             except Exception as e:
                 log.error(f'The process: ({row['NUMERO DO PROCESSO']}) was not registered. {e}')
                 log.info('Moving on to the next process...')
-                store_error(row['NUMERO DO PROCESSO'], row['AUTOR'])
+                error_report(row['NUMERO DO PROCESSO'], row['AUTOR'], error=e)
                 continue
     except Exception as e:
         log.critical(f"An critical error occurred!: {e}")

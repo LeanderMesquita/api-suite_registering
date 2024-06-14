@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 import pandas as pd
 from datetime import datetime
 
-def log_error(process_number, author_name, error):
+def error_report(process_number, author_name, error):
 
     directory_name = 'relatorios_erro'
     desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
