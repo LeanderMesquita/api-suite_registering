@@ -16,6 +16,7 @@ class EssentialData(BaseTask):
 
     def select_court(self, court:str):
         log.debug('Filling the court')
+        
         court_map = {
             '2 VARA CIVEL': 'select_2_posicao',
             '3 VARA CIVEL': 'select_4_posicao',
@@ -45,7 +46,8 @@ class EssentialData(BaseTask):
                 sleep(1)
                 return click_and_fill(court_key, command='doubleClick')
             return click_and_fill(default_p, command='doubleClick')
-
+        
+        
     def execute(self):
         log.info('Iniciating the Essential data registering')
         try:
@@ -71,6 +73,8 @@ class EssentialData(BaseTask):
             self.select_court(self.row['VARA'])
             log.success('Essential date registered successfully!')
         except Exception as e: 
-            log.error(f"ERROR DURING FILLING THE ESSENTIAL DATA. Error: {e}")
+            log.error(f"Error during filling essential data. ERROR: {e}")
+            click_and_fill('anular_vara', delay_after=2)
             click_and_fill('anular_dados_iniciais')
+            raise DataFillingError(f'Error during essential data filling. ERROR: {e}')
             
