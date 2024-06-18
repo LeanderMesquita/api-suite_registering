@@ -4,6 +4,7 @@ POSITION_PATH = {
     'anular_contraparte': (1342, 792),
     'anular_novo_autor': (1337, 923),
     'anular_dados_iniciais': (1510, 943),
+    'anular_vara': (1076, 719),
     'anular_profissionais': (1509, 838),
     'anular_profissional_encarregado': (1522, 795),
     'anular_detalhe_encarregado': (1355, 911),
