@@ -46,4 +46,4 @@ class RegisterProcess(BaseTask):
                 self.tutelage.execute()
             click_and_fill('encerrar_processo')
         except Exception as e:
-            raise DataFillingError(f'An error ocurred during full registration {e}')
+            raise DataFillingError(f'An error ocurred! (Register Process): {e}')
