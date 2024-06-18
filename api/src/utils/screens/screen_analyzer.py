@@ -2,7 +2,7 @@ import pyautogui as pya
 import numpy as np
 import cv2
 from api.src.utils.constants.index import IMAGE_PATH
-
+from api.src.utils.logger.logger import log
 class ScreenAnalyzer:
      
     def locate_on_screen(self, template_path, screenshot_path, threshold=0.85):
@@ -34,10 +34,10 @@ class ScreenAnalyzer:
                 pya.screenshot(screenshot)
                 image_path = IMAGE_PATH[image_alias]
                 if self.locate_on_screen(template_path=image_path, screenshot_path=screenshot):
-                    print(f'Founded! initiating: {image_alias}')
+                    log.debug(f'Founded! initiating: {image_alias}')
                     break
                 else:
-                    print(f'Not found, researching {image_alias}...')
+                    log.warning(f'Not found, researching {image_alias}...')
             except Exception as e:
                 raise e
 
@@ -48,10 +48,10 @@ class ScreenAnalyzer:
                 screenshot = 'src/utils/screens/fullscreen.png'
                 pya.screenshot(screenshot)
                 if self.locate_on_screen(template_path=image_alias, screenshot_path=screenshot):
-                    print('found! waiting action')
+                    log.debug('found! waiting action')
                     return True
                 
                 i += 1 
-                print(f'researching...({i} try)')                    
+                log.warning(f'researching...({i} try)')                    
             except Exception as e:
                 raise e
