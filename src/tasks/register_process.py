@@ -8,6 +8,8 @@ from utils.functions.click_and_fill import click_and_fill
 
 import pandas as pd
 
+from utils.screens.screen_analyzer import ScreenAnalyzer
+
 class RegisterProcess(BaseTask):
     def __init__(self, row):
         super().__init__(row)
@@ -20,25 +22,28 @@ class RegisterProcess(BaseTask):
         self.term = TermSchedule(row)
         self.hearing = HearingSchedule(row)
         self.tutelage = TutelageSchedule(row)
-
+        self.screen = ScreenAnalyzer()
     def execute(self):
         try:
+            self.screen.validate_image('initial_register_screen_validator')
+            click_and_fill('novo_processo')
             self.defendant.execute()
             self.author.execute()
             self.lawyer.execute()
             click_and_fill('ok_sujeitos')
-            click_and_fill('aceitar_posicao_arquivo', delay_after=6)
+            click_and_fill('aceitar_posicao_arquivo')
             self.essential_data.execute()
             self.professionals.execute()
-            click_and_fill('salvar_processo')
-            click_and_fill('aceitar_processo', delay_after=15)
+            click_and_fill('salvar_processo', delay_before=1)
+            click_and_fill('aceitar_processo')
             self.record_card.execute()
-            click_and_fill('selecionar_agenda', delay_after=8)
+            self.screen.validate_image('initiate_schedule_validator')
+            click_and_fill('selecionar_agenda')
             self.term.execute()
             if not (pd.isna(self.row['DATA AUDIENCIA'])):
                 self.hearing.execute()
             if not (pd.isna(self.row['DATA TUTELA'])):
                 self.tutelage.execute()
-            click_and_fill('encerrar_processo', delay_after=30)
+            click_and_fill('encerrar_processo')
         except Exception as e:
             raise DataFillingError(f'An error ocurred in main process {e}')
