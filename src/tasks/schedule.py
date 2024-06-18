@@ -91,7 +91,7 @@ class HearingSchedule(Schedule):
     def execute(self):
         log.info('Starting the Hearing Schedule registering')
         try:
-            
+            self.screen.validate_image('registered_schedule_validator')
             click_and_fill('abrir_agenda', command='rightClick')
             click_and_fill('nova_agenda')
             click_and_fill('nova_audiencia')
@@ -118,7 +118,7 @@ class TutelageSchedule(Schedule):
 
     def execute(self):
         try:
-            
+            self.screen.validate_image('registered_schedule_validator')
             click_and_fill('abrir_agenda', command='rightClick')
             click_and_fill('nova_agenda')
             click_and_fill('nova_decisao')
