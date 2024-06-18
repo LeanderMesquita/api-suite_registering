@@ -34,6 +34,7 @@ class Defendant(Subject):
         except Exception as e: 
             log.error(f"Cannot possible registering the defendant. {e}")
             click_and_fill('anular_reu')
+            raise DataFillingError(f'Cannot possible registering the defendant. ERROR: {e}')
             
         
 
@@ -84,6 +85,7 @@ class Author(Subject):
             click_and_fill('anular_novo_autor')
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
+            raise DataFillingError(f'Cannot possible registering the current author. ERROR: {e}')
           
 
 class Lawyer(Subject):
@@ -112,9 +114,10 @@ class Lawyer(Subject):
             log.success('Lawyer successfull registered!')
             
         except Exception as e:
-            log.error(f'Cannot possible registering the lawyer. {e}')
+            log.error(f'Cannot possible registering the lawyer. ERROR: {e}')
             click_and_fill('anular_contraparte')
             click_and_fill('anular_reu')
+            raise DataFillingError(f'Cannot possible registering the lawyer. {e}')
            
 class RelatedProfessionals(Subject):
     def __init__(self, row):
@@ -164,5 +167,6 @@ class RelatedProfessionals(Subject):
             click_and_fill('anular_profissional_encarregado')
             click_and_fill('anular_profissionais')
             click_and_fill('anular_dados_iniciais')
+            raise DataFillingError(f'Cannot possible registering the related professionals. {e}')
             
     
