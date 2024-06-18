@@ -22,11 +22,21 @@ class TermSchedule(Schedule):
             self.screen.validate_image('schedule_screen_validator')
             click_and_fill('abrir_agenda', command='rightClick')
             click_and_fill('nova_agenda')
-            click_and_fill('novo_prazo', delay_after=6)
-            robot_response = self.row['RECEBIDO POR ROBO'].lower()
+            click_and_fill('novo_prazo')
+            
+            
             log.info('Registering the distribuition schedule')
+            self.screen.validate_image('inside_schedule_validator')
             distribuition_date = format_date(self.row['DATA DISTRIBUICAO'])
             pyperclip.copy(distribuition_date)
+
+            click_and_fill('adicionar_tipo_nota')
+            self.screen.validate_image('inside_note_validator')
+            click_and_fill('filtrar_tipo_nota', 'DATA DE DISTRIBUI') 
+            click_and_fill('selecionar_nota')
+            click_and_fill('aceitar_descricao')
+            click_and_fill('ok_nota')
+
             click_and_fill('selecionar_data', command='rightClick')
             click_and_fill('colar_data')
             click_and_fill('alterar_descricao', value='DATA DE DISTRIBUICAO')
@@ -34,10 +44,12 @@ class TermSchedule(Schedule):
             click_and_fill('aceitar_outra_nota')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
                 click_and_fill('ok_data_cumprimento')
-            
+
+            robot_response = self.row['RECEBIDO POR ROBO'].lower()
             if(robot_response != 'sim'):
 
                 log.info('Registering the quote schedule')
+                self.screen.validate_image('inside_schedule_validator')
                 quote_date = format_date(self.row['DATA CITACAO'])
                 pyperclip.copy(quote_date)
                 click_and_fill('selecionar_data', command='rightClick')
@@ -50,6 +62,7 @@ class TermSchedule(Schedule):
                     click_and_fill('ok_data_cumprimento')
 
             log.info('Registering the receipt schedule')
+            self.screen.validate_image('inside_schedule_validator')
             receipt_date = format_date(self.row['DATA RECEBIMENTO'])
             pyperclip.copy(receipt_date)
             click_and_fill('selecionar_data', command='rightClick')
@@ -81,7 +94,8 @@ class HearingSchedule(Schedule):
             
             click_and_fill('abrir_agenda', command='rightClick')
             click_and_fill('nova_agenda')
-            click_and_fill('nova_audiencia', delay_after=6)
+            click_and_fill('nova_audiencia')
+            self.screen.validate_image('inside_schedule_validator')
             hearing_date = format_date(self.row['DATA AUDIENCIA'])
             pyperclip.copy(hearing_date)
             click_and_fill('selecionar_data', command='rightClick')
@@ -107,7 +121,8 @@ class TutelageSchedule(Schedule):
             
             click_and_fill('abrir_agenda', command='rightClick')
             click_and_fill('nova_agenda')
-            click_and_fill('nova_decisao', delay_after=6)
+            click_and_fill('nova_decisao')
+            self.screen.validate_image('inside_schedule_validator')
             tutelage_date = format_date(self.row['DATA TUTELA'])
             pyperclip.copy(tutelage_date)
             click_and_fill('selecionar_data_decisao', command='rightClick')
