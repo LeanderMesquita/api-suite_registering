@@ -68,5 +68,7 @@ class RecordCard(BaseTask):
             log.success('Record card registered successfully!')
         except Exception as e:
             log.error(f'Error during the record card registering. Error: {e}')
-            click_and_fill('fechar_ficha', delay_after=10)
-            
+            click_and_fill('anular_obs')
+            click_and_fill('confirmar_dados_anulados')
+            click_and_fill('anular_ficha')
+            #click_and_fill('encerrar_processo')
