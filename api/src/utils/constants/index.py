@@ -9,7 +9,8 @@ POSITION_PATH = {
     'anular_profissional_encarregado': (1522, 795),
     'anular_detalhe_encarregado': (1355, 911),
     'anular_ficha': (1417, 890),
-    'anular_obs': (1227, 329),
+    'anular_obs': (1171, 674),
+    'confirmar_dados_anulados': (991, 611),
     ## iniciar novo processo
     'novo_processo': (40, 106),
     ## reu
