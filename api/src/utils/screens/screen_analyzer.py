@@ -1,3 +1,4 @@
+from time import sleep
 import pyautogui as pya
 import numpy as np
 import cv2
@@ -38,6 +39,7 @@ class ScreenAnalyzer:
                     break
                 else:
                     log.warning(f'Not found, researching {image_alias}...')
+                    sleep(0.5)
             except Exception as e:
                 raise e
 
@@ -47,7 +49,8 @@ class ScreenAnalyzer:
             try:
                 screenshot = 'src/utils/screens/fullscreen.png'
                 pya.screenshot(screenshot)
-                if self.locate_on_screen(template_path=image_alias, screenshot_path=screenshot):
+                check_image_path = IMAGE_PATH[image_alias]
+                if self.locate_on_screen(template_path=check_image_path, screenshot_path=screenshot):
                     log.debug('found! waiting action')
                     return True
                 
