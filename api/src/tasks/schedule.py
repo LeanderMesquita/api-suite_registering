@@ -43,7 +43,6 @@ class TermSchedule(Schedule):
 
             click_and_fill('selecionar_data', command='rightClick')
             click_and_fill('colar_data')
-            click_and_fill('alterar_descricao', value='DATA DE DISTRIBUICAO')
             click_and_fill('selecionar_outra_nota')
             click_and_fill('aceitar_outra_nota')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
@@ -59,7 +58,6 @@ class TermSchedule(Schedule):
                 click_and_fill('selecionar_data', command='rightClick')
                 click_and_fill('colar_data')
                 click_and_fill('inserir_horario', str(self.row['HORARIO CITACAO']))
-                click_and_fill('alterar_descricao', value='DATA DE CITACAO')
                 click_and_fill('selecionar_outra_nota')
                 click_and_fill('aceitar_outra_nota')
                 if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
@@ -72,7 +70,7 @@ class TermSchedule(Schedule):
             click_and_fill('selecionar_data', command='rightClick')
             click_and_fill('colar_data')
             click_and_fill('inserir_horario', str(self.row['HORARIO RECEBIMENTO']))
-            receipt_description = 'DATA DE RECEBIMENTO NO BACKOFFICE - VIA TRATAMENTO CONSOLIDADO CAPTURAS' if (robot_response == 'sim') else 'DATA DE RECEBIMENTO NO BACKOFFICE'
+            receipt_description = ' - VIA TRATAMENTO CONSOLIDADO CAPTURAS' if (robot_response == 'sim') else 'DATA DE RECEBIMENTO NO BACKOFFICE'
             click_and_fill('alterar_descricao', value=receipt_description)
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
@@ -83,6 +81,8 @@ class TermSchedule(Schedule):
             
         except Exception as e:
             log.error('Error during term schedule registering...')
+            click_and_fill('anular_agenda')
+            click_and_fill('confirmar_anulamento_agenda')
             raise DataFillingError(f'Error in term schedule registring: {e}')
         
 
@@ -102,10 +102,17 @@ class HearingSchedule(Schedule):
             self.screen.validate_image('inside_schedule_validator')
             hearing_date = format_date(self.row['DATA AUDIENCIA'])
             pyperclip.copy(hearing_date)
+
+            click_and_fill('adicionar_tipo_nota')
+            self.screen.validate_image('inside_note_validator')
+            click_and_fill('filtrar_tipo_nota', 'CONCILIACAO') 
+            click_and_fill('selecionar_nota_conciliacao')
+            click_and_fill('aceitar_descricao')
+            click_and_fill('ok_nota')
+
             click_and_fill('selecionar_data', command='rightClick')
             click_and_fill('colar_data')
             click_and_fill('inserir_horario', str(self.row['HORARIO AUDIENCIA']))
-            click_and_fill('alterar_descricao', value='CONCILIACAO')
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
@@ -114,6 +121,8 @@ class HearingSchedule(Schedule):
 
         except Exception as e:
             log.error(f'Error during the hearing schedule registering: {e}')
+            click_and_fill('anular_agenda')
+            click_and_fill('confirmar_anulamento_agenda')
             raise DataFillingError(f'Error in Hearing schedule registering: {e}')
     
 class TutelageSchedule(Schedule):
@@ -129,9 +138,17 @@ class TutelageSchedule(Schedule):
             self.screen.validate_image('inside_schedule_validator')
             tutelage_date = format_date(self.row['DATA TUTELA'])
             pyperclip.copy(tutelage_date)
+
+            click_and_fill('adicionar_tipo_nota_decisao')
+            self.screen.validate_image('inside_note_validator')
+            click_and_fill('filtrar_tipo_nota', 'TUTELA') 
+            click_and_fill('selecionar_nota')
+            click_and_fill('aceitar_descricao')
+            click_and_fill('ok_nota')
+
             click_and_fill('selecionar_data_decisao', command='rightClick')
             click_and_fill('colar_data_decisao')
-            click_and_fill('alterar_descricao', value='TUTELA - '+self.row['DESCRICAO TUTELA'])
+            click_and_fill('alterar_descricao', value=f' - {self.row['DESCRICAO TUTELA']}')
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
@@ -140,4 +157,6 @@ class TutelageSchedule(Schedule):
 
         except Exception as e:
             log.error(f'Error during tutelage schedule registering: {e}')
+            click_and_fill('anular_agenda')
+            click_and_fill('confirmar_anulamento_agenda')
             raise DataFillingError(f'Error during TutelageSchedule registering: {e}')
