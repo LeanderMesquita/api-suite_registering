@@ -41,7 +41,7 @@ class ScreenAnalyzer:
                     log.warning(f'Not found, researching {image_alias}...')
                     sleep(0.5)
             except Exception as e:
-                raise e
+                log.error(f'ERROR IN VALIDATE IMAGE FUNCTION: {e}')
 
     def check_if_exist_image(self, image_alias:str, tryes:int):
         i = 0
@@ -57,4 +57,4 @@ class ScreenAnalyzer:
                 i += 1 
                 log.warning(f'researching...({i} try)')                    
             except Exception as e:
-                raise e
+                log.error(f'ERROR IN CHECK IMAGE FUNCTION: {e}')
