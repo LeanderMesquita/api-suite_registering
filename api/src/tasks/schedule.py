@@ -45,6 +45,7 @@ class TermSchedule(Schedule):
             click_and_fill('colar_data')
             click_and_fill('selecionar_outra_nota')
             click_and_fill('aceitar_outra_nota')
+            click_and_fill('aceitar_feriado')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
                 click_and_fill('ok_data_cumprimento')
 
@@ -60,6 +61,7 @@ class TermSchedule(Schedule):
                 click_and_fill('inserir_horario', str(self.row['HORARIO CITACAO']))
                 click_and_fill('selecionar_outra_nota')
                 click_and_fill('aceitar_outra_nota')
+                click_and_fill('aceitar_feriado')
                 if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
                     click_and_fill('ok_data_cumprimento')
 
@@ -74,6 +76,7 @@ class TermSchedule(Schedule):
             click_and_fill('alterar_descricao', value=receipt_description)
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
+            click_and_fill('aceitar_feriado')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
                 click_and_fill('ok_data_cumprimento')
 
@@ -115,6 +118,7 @@ class HearingSchedule(Schedule):
             click_and_fill('inserir_horario', str(self.row['HORARIO AUDIENCIA']))
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
+            click_and_fill('aceitar_feriado')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
                 click_and_fill('ok_data_cumprimento')
             log.success('Hearing schedule registered successfully!')
@@ -151,6 +155,7 @@ class TutelageSchedule(Schedule):
             click_and_fill('alterar_descricao', value=f' - {self.row['DESCRICAO TUTELA']}')
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
+            click_and_fill('aceitar_feriado')
             if(self.screen.check_if_exist_image('fullfillment_validator', tryes=5)):
                 click_and_fill('ok_data_cumprimento')
             log.success('Tutelage schedule registered successfully!')
