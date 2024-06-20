@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 import os
-import pandas as pd
+import pyautogui as pya
+from api.src.exceptions.failsafe import FailSafeException
 from api.src.factory import TaskFactory
 from api.src.utils.functions.error_report import error_report
 from api.src.utils.functions.click_and_fill import click_and_fill
@@ -39,6 +40,9 @@ def start_automation(file_path):
         df = read_dataframe(file_path)
         if not (df.empty): log.success('Dataframe create sucessfully!')
         for index, row in df.iterrows():
+            x, y = pya.position()
+            if x == 0 and y == 0:
+                raise FailSafeException('FAIL SAFE TRIGGERED')
             try:
                 log.info(f'Registering process: ({row['NUMERO DO PROCESSO']}).')
                 task = TaskFactory.create_task('register_process', row)
@@ -48,7 +52,6 @@ def start_automation(file_path):
                 successfully_report(row['NUMERO DO PROCESSO'], row['AUTOR'])
             except Exception as e:
                 log.error(f'The process: ({row['NUMERO DO PROCESSO']}) was not registered. {e}')
-                log.info('Moving on to the next process...')
                 error_report(row['NUMERO DO PROCESSO'], row['AUTOR'], error=e)
                 continue
     except Exception as e:
