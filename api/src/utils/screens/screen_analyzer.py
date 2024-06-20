@@ -31,6 +31,11 @@ class ScreenAnalyzer:
     def validate_image(self, image_alias):
         while True:
             try:
+
+                x, y = pya.position() 
+                if x == 0 and y == 0:
+                    break #safepoint pyautogui
+                    
                 screenshot = 'src/utils/screens/fullscreen.png'
                 pya.screenshot(screenshot)
                 image_path = IMAGE_PATH[image_alias]
@@ -40,6 +45,7 @@ class ScreenAnalyzer:
                 else:
                     log.warning(f'Not found, researching {image_alias}...')
                     sleep(0.5)
+
             except Exception as e:
                 log.error(f'ERROR IN VALIDATE IMAGE FUNCTION: {e}')
 
