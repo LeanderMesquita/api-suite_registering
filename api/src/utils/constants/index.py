@@ -11,6 +11,8 @@ POSITION_PATH = {
     'anular_ficha': (1417, 890),
     'anular_obs': (1171, 674),
     'confirmar_dados_anulados': (991, 611),
+    'anular_agenda': (1242, 763),
+    'confirmar_anulamento_agenda': (1043, 613),
     ## iniciar novo processo
     'novo_processo': (40, 106),
     ## reu
