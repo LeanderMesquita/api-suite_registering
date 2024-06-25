@@ -13,11 +13,7 @@ from api.src.utils.logger.logger import log
 
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -27,18 +23,19 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
     if file:
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
         
-        start_automation(file_path)
+        filename = secure_filename(file.filename)
+        log.info(f'Received file: {filename}')
+        df = read_dataframe(file)
+        start_automation(df)
+        
         return jsonify({'message': 'File successfully uploaded and processed'}), 200
 
-def start_automation(file_path):
+def start_automation(df):
     try:
         log.info('Starting automation')
-        df = read_dataframe(file_path)
         if not (df.empty): log.success('Dataframe create sucessfully!')
+        
         for index, row in df.iterrows():
             x, y = pya.position()
             if x == 0 and y == 0:
