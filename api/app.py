@@ -1,3 +1,4 @@
+from time import sleep
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 import os
@@ -35,7 +36,7 @@ def start_automation(df):
     try:
         log.info('Starting automation')
         if not (df.empty): log.success('Dataframe create sucessfully!')
-        
+        sleep(5)
         for index, row in df.iterrows():
             x, y = pya.position()
             if x == 0 and y == 0:
