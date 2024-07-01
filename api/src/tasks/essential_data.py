@@ -44,8 +44,10 @@ class EssentialData(BaseTask):
                 sleep(1)
                 pya.mouseUp()
                 sleep(1)
-                return click_and_fill(court_key, command='doubleClick')
-            return click_and_fill(default_p, command='doubleClick')
+                
+            return click_and_fill(court_key, command='doubleClick')
+        
+        return click_and_fill(default_p, command='doubleClick')
         
         
     def execute(self):
