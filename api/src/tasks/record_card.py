@@ -59,6 +59,7 @@ class RecordCard(BaseTask):
             if not(pd.isna(self.row['SOLICITADO DANO MATERIAL']) or self.row['TENTATIVAS DE CONTATO'] == ''):    
                 click_and_fill('inserir_valor_dano_material', str(self.row['SOLICITADO DANO MATERIAL']))
             
+            click_and_fill('inserir_tipo_cliente', self.row['TIPO CLIENTE'])
             click_and_fill('selecionar_observacao')
             self.screen.validate_image('observation_validator')
             click_and_fill('inserir_observacao', self.row['OBSERVACOES'])
