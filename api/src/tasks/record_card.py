@@ -23,7 +23,9 @@ class RecordCard(BaseTask):
             if(self.row['CLIENTE VITAL'].lower() == 'sim'):
                 click_and_fill('check_cliente_vital') 
            
-            click_and_fill('selecionar_projeto', self.row['PROJETO']) 
+            if not(pd.isna(self.row['PROJETO'])):
+                click_and_fill('selecionar_projeto', self.row['PROJETO']) 
+                
             click_and_fill('inserir_bairro_do_fato', self.row['BAIRRO DO FATO'])
 
             if (self.row['HOUVE CORTE'].lower() == 'sim'):             
