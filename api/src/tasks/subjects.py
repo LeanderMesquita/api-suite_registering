@@ -63,13 +63,14 @@ class Author(Subject):
             click_and_fill('cidade', self.row['CIDADE']) 
             click_and_fill('tipo_pessoa')
 
-            if not(pd.isna(self.row['CNPJ'])):
-                click_and_fill('pessoa_juridica') 
-                click_and_fill('cnpj', str(self.row['CNPJ']))
-            elif not(pd.isna(self.row['CPF'])):    
+            if not(pd.isna(self.row['CPF'])):    
                 click_and_fill('pessoa_fisica')
                 click_and_fill('sexo', self.row['SEXO'])
                 click_and_fill('cpf', str(self.row['CPF']))
+            elif not(pd.isna(self.row['CNPJ'])):
+                click_and_fill('pessoa_juridica') 
+                click_and_fill('cnpj', str(self.row['CNPJ']))
+            
          
             click_and_fill('ok_pessoa')
             click_and_fill('aceitar_existente')
