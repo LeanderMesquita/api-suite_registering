@@ -102,7 +102,8 @@ class TermSchedule(Schedule):
         except Exception as e:
             log.error('Error during term schedule registering...')
             click_and_fill('anular_agenda')
-            click_and_fill('confirmar_anulamento_agenda')
+            click_and_fill('confirmar_anulamento_agenda', delay_before=1)
+            click_and_fill('encerrar_processo')
             raise DataFillingError(f'Error in term schedule registring: {e}')
         
 
@@ -143,7 +144,8 @@ class HearingSchedule(Schedule):
         except Exception as e:
             log.error(f'Error during the hearing schedule registering: {e}')
             click_and_fill('anular_agenda')
-            click_and_fill('confirmar_anulamento_agenda')
+            click_and_fill('confirmar_anulamento_agenda', delay_before=1)
+            click_and_fill('encerrar_processo')
             raise DataFillingError(f'Error in Hearing schedule registering: {e}')
     
 class TutelageSchedule(Schedule):
@@ -180,5 +182,6 @@ class TutelageSchedule(Schedule):
         except Exception as e:
             log.error(f'Error during tutelage schedule registering: {e}')
             click_and_fill('anular_agenda')
-            click_and_fill('confirmar_anulamento_agenda')
+            click_and_fill('confirmar_anulamento_agenda', delay_before=1)
+            click_and_fill('encerrar_processo')
             raise DataFillingError(f'Error during TutelageSchedule registering: {e}')
