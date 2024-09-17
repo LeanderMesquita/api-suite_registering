@@ -28,7 +28,8 @@ class EssentialData(BaseTask):
             '9 VARA CIVEL': 'select_6_posicao',
             'JUIZADO ESPECIAL CIVEL': 'select_1_posicao',
             'JUSTICA ITINERANTE DE AREAL': 'select_2_posicao',
-            '4 UJEC': 'select_3_posicao'
+            '4 UJEC': 'select_3_posicao',
+            'JUIZADO ESPECIAL CIVEL E CRIMINAL': 'select_5_posicao'
         }
 
         court_key = court_map.get(court, None)
