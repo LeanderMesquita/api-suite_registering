@@ -60,7 +60,7 @@ class EssentialData(BaseTask):
             pyperclip.copy(self.row['VALOR'])
             click_and_fill('valor_da_causa', command='rightClick')
             click_and_fill('colar_valor')
-            click_and_fill('estado_processo', 'INICIAL')
+            click_and_fill('estado_processo', 'INSTANCIA SUPERIOR')
             click_and_fill('operacao', 'ANDAMENTO')
             click_and_fill('agregado', self.row['AGREGADO'])
             click_and_fill('operacao', 'ANDAMENTO')
