@@ -27,7 +27,9 @@ class EssentialData(BaseTask):
             '8 VARA CIVEL': 'select_6_posicao',
             '9 VARA CIVEL': 'select_6_posicao',
             'JUIZADO ESPECIAL CIVEL': 'select_1_posicao',
-            'JUSTICA ITINERANTE DE AREAL': 'select_2_posicao'
+            'JUSTICA ITINERANTE DE AREAL': 'select_2_posicao',
+            '4 UJEC': 'select_3_posicao',
+            'JUIZADO ESPECIAL CIVEL E CRIMINAL': 'select_5_posicao'
         }
 
         court_key = court_map.get(court, None)
@@ -44,8 +46,10 @@ class EssentialData(BaseTask):
                 sleep(1)
                 pya.mouseUp()
                 sleep(1)
-                return click_and_fill(court_key, command='doubleClick')
-            return click_and_fill(default_p, command='doubleClick')
+                
+            return click_and_fill(court_key, command='doubleClick')
+        
+        return click_and_fill(default_p, command='doubleClick')
         
         
     def execute(self):

@@ -19,7 +19,7 @@ def read_dataframe(path: str):
             if df[col].str.replace('.', '', 1).str.isdigit().any():
                 df[col] = df[col].apply(format_numeric_value)
         
-        return df
+        return df.where(pd.notnull(df), "")
     except FileNotFoundError:
         print("Arquivo não encontrado.")
         return None

@@ -56,6 +56,14 @@ class TermSchedule(Schedule):
                 self.screen.validate_image('inside_schedule_validator')
                 quote_date = format_date(self.row['DATA CITACAO'])
                 pyperclip.copy(quote_date)
+                
+                click_and_fill('adicionar_tipo_nota')
+                self.screen.validate_image('inside_note_validator')
+                click_and_fill('filtrar_tipo_nota', 'DATA DE CITA') 
+                click_and_fill('selecionar_nota')
+                click_and_fill('aceitar_descricao')
+                click_and_fill('ok_nota')
+                
                 click_and_fill('selecionar_data', command='rightClick')
                 click_and_fill('colar_data')
                 click_and_fill('inserir_horario', str(self.row['HORARIO CITACAO']))
@@ -69,11 +77,20 @@ class TermSchedule(Schedule):
             self.screen.validate_image('inside_schedule_validator')
             receipt_date = format_date(self.row['DATA RECEBIMENTO'])
             pyperclip.copy(receipt_date)
+            
+            click_and_fill('adicionar_tipo_nota')
+            self.screen.validate_image('inside_note_validator')
+            click_and_fill('filtrar_tipo_nota', 'DATA DE RECEBIMENTO NO BACKOFFICE') 
+            click_and_fill('selecionar_nota')
+            click_and_fill('aceitar_descricao')
+            click_and_fill('ok_nota')
+            
             click_and_fill('selecionar_data', command='rightClick')
             click_and_fill('colar_data')
             click_and_fill('inserir_horario', str(self.row['HORARIO RECEBIMENTO']))
-            receipt_description = ' - VIA TRATAMENTO CONSOLIDADO CAPTURAS' if (robot_response == 'sim') else 'DATA DE RECEBIMENTO NO BACKOFFICE'
-            click_and_fill('alterar_descricao', value=receipt_description)
+            if robot_response == 'sim':
+                receipt_description = ' - VIA TRATAMENTO CONSOLIDADO CAPTURAS' 
+                click_and_fill('alterar_descricao', value=receipt_description)
             click_and_fill('ok_agenda')
             click_and_fill('aceitar_outra_nota')
             click_and_fill('aceitar_feriado')
@@ -85,7 +102,8 @@ class TermSchedule(Schedule):
         except Exception as e:
             log.error('Error during term schedule registering...')
             click_and_fill('anular_agenda')
-            click_and_fill('confirmar_anulamento_agenda')
+            click_and_fill('confirmar_anulamento_agenda', delay_before=1)
+            click_and_fill('encerrar_processo')
             raise DataFillingError(f'Error in term schedule registring: {e}')
         
 
@@ -126,7 +144,8 @@ class HearingSchedule(Schedule):
         except Exception as e:
             log.error(f'Error during the hearing schedule registering: {e}')
             click_and_fill('anular_agenda')
-            click_and_fill('confirmar_anulamento_agenda')
+            click_and_fill('confirmar_anulamento_agenda', delay_before=1)
+            click_and_fill('encerrar_processo')
             raise DataFillingError(f'Error in Hearing schedule registering: {e}')
     
 class TutelageSchedule(Schedule):
@@ -163,5 +182,6 @@ class TutelageSchedule(Schedule):
         except Exception as e:
             log.error(f'Error during tutelage schedule registering: {e}')
             click_and_fill('anular_agenda')
-            click_and_fill('confirmar_anulamento_agenda')
+            click_and_fill('confirmar_anulamento_agenda', delay_before=1)
+            click_and_fill('encerrar_processo')
             raise DataFillingError(f'Error during TutelageSchedule registering: {e}')
